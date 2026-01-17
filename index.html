@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى ملاك المغربي</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700&family=Marhey:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'romantic-pink': '#ffd1dc',
+                        'deep-rose': '#c2185b',
+                        'gold-accent': '#d4af37',
+                        'soft-cream': '#fff9fa',
+                    },
+                    fontFamily: {
+                        'amiri': ['Amiri', 'serif'],
+                        'cairo': ['Cairo', 'sans-serif'],
+                        'marhey': ['Marhey', 'cursive'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fff0f5;
+            overflow-x: hidden;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -20px;
+            color: rgba(255, 105, 180, 0.4);
+            animation: rise linear forwards;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Smooth reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-cairo text-gray-800">
+
+    <!-- Background Animation Container -->
+    <div id="hearts-container" class="heart-bg"></div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen flex flex-col items-center justify-center p-4 relative z-10">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-12 animate-float">
+            <div class="inline-block p-2 rounded-full border-2 border-deep-rose/30 mb-4 bg-white/50">
+                <i class="fa-solid fa-crown text-4xl text-gold-accent p-4"></i>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-marhey text-deep-rose mb-2 drop-shadow-sm">ملاك المغربي</h1>
+            <p class="text-xl md:text-2xl text-gray-600 font-amiri italic">حيث يبدأ الجمال، وينتهي الكلام</p>
+        </header>
+
+        <!-- Hero Card -->
+        <div class="glass-card rounded-3xl p-8 md:p-12 max-w-4xl w-full mb-12 text-center transform transition duration-500 hover:scale-[1.01]">
+            <div class="w-full h-64 md:h-96 rounded-2xl overflow-hidden mb-8 shadow-lg relative group">
+                <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?q=80&w=1000&auto=format&fit=crop" 
+                     alt="Romantic Flowers" 
+                     class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-deep-rose/60 to-transparent flex items-end justify-center pb-6">
+                    <span class="text-white font-amiri text-2xl">أنتِ الاستثناء في كل شيء</span>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <h2 class="text-3xl font-bold text-gray-800">رسالة إلى القلب</h2>
+                <p class="text-lg md:text-xl leading-loose font-amiri text-gray-700">
+                    في عالم مليء بالضجيج، أنتِ الهدوء الذي أبحث عنه. 
+                    اسمك "ملاك"، ولم يكن صدفة، بل وصفاً دقيقاً لروحك التي تضيء كل مكان تحلين فيه.
+                    أنتِ لستِ مجرد حبيبة، أنتِ <span class="text-deep-rose font-bold">طفلتي</span> المدللة وحكايتي الأجمل.
+                </p>
+                
+                <div class="flex justify-center gap-4 mt-8">
+                    <button onclick="toggleMessage()" class="bg-deep-rose text-white px-8 py-3 rounded-full shadow-lg hover:bg-pink-700 transition duration-300 flex items-center gap-2 transform active:scale-95">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                        اقرئي رسالتي
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Message Section (Revealed on Click) -->
+        <div id="special-message" class="hidden w-full max-w-2xl mx-auto mb-12">
+            <div class="bg-white p-8 rounded-2xl shadow-xl border-2 border-pink-200 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 text-pink-100 opacity-50">
+                    <i class="fa-solid fa-heart text-9xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-deep-rose mb-4 relative z-10">إلى طفلتي وملاكي..</h3>
+                <p class="font-amiri text-xl leading-9 text-gray-700 relative z-10">
+                    يقال أن القمر يغار من الجميلات، وأظنه الليلة يختبئ خجلاً منك.
+                    مهما مرت الأيام، ستظلين دائماً طفلتي الصغيرة التي أحب دلالها وأخاف عليها من نسمة الهواء.
+                    أتمنى أن تكون أيامك كلها وروداً وفرحاً يليق بقلبك الأبيض.
+                    حفظك الله ورعاكِ دائماً وأبداً.
+                </p>
+                <div class="text-left mt-4 text-deep-rose text-2xl">
+                    <i class="fa-solid fa-signature"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Three Qualities Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl px-4 reveal">
+            <div class="bg-white/80 p-6 rounded-2xl shadow-sm text-center hover:shadow-md transition">
+                <div class="text-deep-rose text-4xl mb-4"><i class="fa-regular fa-star"></i></div>
+                <h3 class="font-bold text-xl mb-2">فريدة</h3>
+                <p class="text-sm text-gray-600">لا تشبهين أحداً، وكأنك خُلقتِ من نور خاص.</p>
+            </div>
+            <div class="bg-white/80 p-6 rounded-2xl shadow-sm text-center hover:shadow-md transition">
+                <div class="text-deep-rose text-4xl mb-4"><i class="fa-solid fa-heart"></i></div>
+                <h3 class="font-bold text-xl mb-2">طيبة القلب</h3>
+                <p class="text-sm text-gray-600">جمالك الداخلي يطغى على كل شيء، ونقاؤك نادر.</p>
+            </div>
+            <div class="bg-white/80 p-6 rounded-2xl shadow-sm text-center hover:shadow-md transition">
+                <div class="text-deep-rose text-4xl mb-4"><i class="fa-solid fa-gem"></i></div>
+                <h3 class="font-bold text-xl mb-2">ثمينة</h3>
+                <p class="text-sm text-gray-600">كالمغرب، عريقة، أصيلة، وساحرة بكل تفاصيلك.</p>
+            </div>
+        </div>
+
+        <!-- Signature Footer -->
+        <footer class="mt-16 text-center text-gray-500 text-sm font-amiri">
+            <div class="w-16 h-1 bg-deep-rose mx-auto mb-4 rounded-full opacity-50"></div>
+            <p class="mb-2">صُنع بكل حب وتقدير</p>
+            <p class="text-lg font-bold text-deep-rose">من اعداد قيس جازي</p>
+            <p class="text-xs mt-2 opacity-60">&copy; 2026</p>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript for Animations -->
+    <script>
+        // Toggle Hidden Message
+        function toggleMessage() {
+            const message = document.getElementById('special-message');
+            if (message.classList.contains('hidden')) {
+                message.classList.remove('hidden');
+                message.classList.add('animate-pulse');
+                setTimeout(() => message.classList.remove('animate-pulse'), 1000);
+                
+                // Scroll to message
+                message.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Burst of hearts
+                createHeartBurst();
+            } else {
+                message.classList.add('hidden');
+            }
+        }
+
+        // Floating Hearts Background Effect
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            
+            // Random Emoji
+            const hearts = ['❤️', '💖', '🌸', '✨', '🌹', '🦋'];
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            
+            // Random Position & Size
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            
+            // Random Animation Duration
+            const duration = Math.random() * 3 + 4; // between 4 and 7 seconds
+            heart.style.animationDuration = duration + 's';
+            
+            container.appendChild(heart);
+
+            // Remove after animation
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // Create hearts periodically
+        setInterval(createHeart, 500);
+
+        function createHeartBurst() {
+            for(let i=0; i<30; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+        }
+
+        // Scroll Reveal Animation
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
